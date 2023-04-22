@@ -114,6 +114,7 @@ Keukenhof 官方有出租腳踏車的服務！也是本篇文章的重點！
 
 美麗的花田 ~
 <blockquote class="imgur-embed-pub" lang="en" data-id="mzCdYPe"><a href="https://imgur.com/mzCdYPe">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+總共騎了四個小時，一開始還走錯路，騎到紫色的路線了，但這邊的花田還好，就不特別推薦囉。
 
 # 咖啡廳番外篇
 我們騎騎停停，中間在一家叫 **Mama** 的咖啡廳休息了一小時。
@@ -127,8 +128,6 @@ Keukenhof 官方有出租腳踏車的服務！也是本篇文章的重點！
 熱巧克力 ok，巧克力蛋糕很酷，搭配的小東西有杏仁味，卻不會不搭蛋糕，蛋糕本體下面脆脆的，好吃 ~
 
 推薦這家咖啡廳，廁所也很舒適喔 ~
-
-總共騎了四個小時，一開始還走錯路，騎到紫色的路線了，但這邊的花田還好，就不特別推薦囉。
 
 # 結尾
 
