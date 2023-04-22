@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"awan119.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6QCY5PHBL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6QCY5PHBL');
+</script>
+  <meta name="description" content="我的環境我除了開設 repo 就有的 master 之外，還有將其他檔案備份至另一個分支(這個 branch 我取名叫 other)因此在同一個repo底下，我有兩個分支。(將其他檔案備份到另一個分支，可參考：https:&#x2F;&#x2F;guiblogs.com&#x2F;hexo30-11&#x2F;) 遇到的問題在架設這個部落格，遇到說更新本地的內容後，部署到github，也看到 github page 有更新了，但伺服器中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Hexo] 本地部屬後，網頁卻沒有更新文章">
+<meta property="og:url" content="https://awan119.github.io/hexo-branch-update/">
+<meta property="og:site_name" content="Awan blog">
+<meta property="og:description" content="我的環境我除了開設 repo 就有的 master 之外，還有將其他檔案備份至另一個分支(這個 branch 我取名叫 other)因此在同一個repo底下，我有兩個分支。(將其他檔案備份到另一個分支，可參考：https:&#x2F;&#x2F;guiblogs.com&#x2F;hexo30-11&#x2F;) 遇到的問題在架設這個部落格，遇到說更新本地的內容後，部署到github，也看到 github page 有更新了，但伺服器中">
+<meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="file:///D:/awan_blog/photo/hexo-branch-update/git_page.jpg">
+<meta property="article:published_time" content="2023-04-18T15:48:26.000Z">
+<meta property="article:modified_time" content="2023-04-18T16:28:20.785Z">
+<meta property="article:author" content="Awan">
+<meta property="article:tag" content="taiwan">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="file:///D:/awan_blog/photo/hexo-branch-update/git_page.jpg">
+
+<link rel="canonical" href="https://awan119.github.io/hexo-branch-update/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>[Hexo] 本地部屬後，網頁卻沒有更新文章 | Awan blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W6QCY5PHBL"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W6QCY5PHBL');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Awan blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here are my memory and experience.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-awan-blog">
+
+    <a href="https://awan119.github.io/" rel="section"><i class="fa fa-user fa-fw"></i>Awan Blog</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">4</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://awan119.github.io/hexo-branch-update/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Awan">
+      <meta itemprop="description" content="Hi, I am from Taiwan. I try to use website to record my life memory and what I just know. Feel free to contact me.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Awan blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Hexo] 本地部屬後，網頁卻沒有更新文章
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2023-04-18 23:48:26" itemprop="dateCreated datePublished" datetime="2023-04-18T23:48:26+08:00">2023-04-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2023-04-19 00:28:20" itemprop="dateModified" datetime="2023-04-19T00:28:20+08:00">2023-04-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Hexo-%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">Hexo 筆記</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>751</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="我的環境"><a href="#我的環境" class="headerlink" title="我的環境"></a>我的環境</h1><p>我除了開設 repo 就有的 master 之外，還有將其他檔案備份至另一個分支(這個 branch 我取名叫 other)<br>因此在同一個repo底下，我有兩個分支。<br>(將其他檔案備份到另一個分支，可參考：<a target="_blank" rel="noopener" href="https://guiblogs.com/hexo30-11/">https://guiblogs.com/hexo30-11/</a>)</p>
+<h1 id="遇到的問題"><a href="#遇到的問題" class="headerlink" title="遇到的問題"></a>遇到的問題</h1><p>在架設這個部落格，遇到說更新本地的內容後，部署到github，也看到 github page 有更新了，但伺服器中的網頁卻沒有更新<br>實際操作如下：</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd &lt;hexo資料夾路徑&gt;   # 資料夾路徑右側會顯示 master branch</span><br><span class="line">hexo cl              # 清除站存檔案</span><br><span class="line">hexo g               # 將內容變成 HTML</span><br><span class="line">hexo d               # 部署 Hexo</span><br></pre></td></tr></table></figure>
+<p>部署到hexo之後，看到 github repo頁面右欄位最下面的 github-pages更新了<br><img src="file:///D:\awan_blog\photo\hexo-branch-update\git_page.jpg" alt="github-pages更新了"></p>
+<p>但網頁並沒有更新，這是遇到的問題</p>
+<h1 id="解決方案"><a href="#解決方案" class="headerlink" title="解決方案"></a>解決方案</h1><p>因為目前將文章、圖片等等編輯檔案都上傳到 other 這個分支，因此也要在這個分支底下推送，才能完整更新 github 的內容<br>操作步驟如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git checkout other             # 切換到 other 這個 branch</span><br><span class="line">                               # 這時原本的路徑旁邊原本是 (master) 應該就會變成 (other)</span><br><span class="line"></span><br><span class="line">git add .                      # 準備推送更新過後的文章</span><br><span class="line">git commit -m &quot;更新文章標題&quot;    # 提交推送</span><br><span class="line">git push origin other          # 將推送提交上去</span><br></pre></td></tr></table></figure>
+
+<p>此時網頁就完全更新了，成功 ~</p>
+<p>TBD : 我想可能是因為把文章那些都和另一個分支串起來了，因此才要額外到 other 這個分支裡面去推送更新過後的內容。</p>
+<h1 id="筆記"><a href="#筆記" class="headerlink" title="筆記"></a>筆記</h1><p>目前測試，因為只是新增文章，只要在 other 這個分支進行 hexo g, hexo d，接著進行 git 的推送並 push 上去，就可以成功更新網頁內容了。</p>
+<p>而不需要一定要先在 master 底下 push，才到分支推送到 git。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/exchange-student-experience/" rel="prev" title="[瑞典]交換生經歷 — 教會了我，剛剛好就好">
+      <i class="fa fa-chevron-left"></i> [瑞典]交換生經歷 — 教會了我，剛剛好就好
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/keukenhof-bike/" rel="next" title="[荷蘭]Keukenhof(庫肯霍夫)鬱金香節 ─ 腳踏車篇">
+      [荷蘭]Keukenhof(庫肯霍夫)鬱金香節 ─ 腳踏車篇 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E7%9A%84%E7%92%B0%E5%A2%83"><span class="nav-number">1.</span> <span class="nav-text">我的環境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%87%E5%88%B0%E7%9A%84%E5%95%8F%E9%A1%8C"><span class="nav-number">2.</span> <span class="nav-text">遇到的問題</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E6%B1%BA%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">解決方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%AD%86%E8%A8%98"><span class="nav-number">4.</span> <span class="nav-text">筆記</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Awan</p>
+  <div class="site-description" itemprop="description">Hi, I am from Taiwan. I try to use website to record my life memory and what I just know. Feel free to contact me.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/awan119/awan119.github.io.git" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;awan119&#x2F;awan119.github.io.git" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:queenawan5@gmail.com" title="E-Mail → mailto:queenawan5@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"><a target="_blank" rel="noopener" href='https://github.com/awan119/awan119.github.io.git'>Awan</a></span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">8k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">7 分鐘</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
