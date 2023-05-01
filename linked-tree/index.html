@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"awan119.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":"flat"},"back2top":{"enable":true,"sidebar":true,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-W6QCY5PHBL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-W6QCY5PHBL');
+</script>
+  <meta name="description" content="本人從來沒有認真學習過資料結構，想慢慢重新學習這些。  以下內容都是詢問 ChatGPT 做出的回答  陣列（Arrays）與連結串列（Linked Lists）陣列（Arrays）陣列是一種有限長度、具有固定大小的資料結構，它可以存儲一系列具有相同數據型別的元素。在陣列中，每個元素都可以通過一個唯一的索引值來訪問。例如，下面是一個包含5個整數的陣列：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[筆記] Linked Lists &amp; Binary Lists">
+<meta property="og:url" content="https://awan119.github.io/linked-tree/">
+<meta property="og:site_name" content="Awan blog">
+<meta property="og:description" content="本人從來沒有認真學習過資料結構，想慢慢重新學習這些。  以下內容都是詢問 ChatGPT 做出的回答  陣列（Arrays）與連結串列（Linked Lists）陣列（Arrays）陣列是一種有限長度、具有固定大小的資料結構，它可以存儲一系列具有相同數據型別的元素。在陣列中，每個元素都可以通過一個唯一的索引值來訪問。例如，下面是一個包含5個整數的陣列：">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2023-05-01T03:28:15.000Z">
+<meta property="article:modified_time" content="2023-05-01T03:51:12.397Z">
+<meta property="article:author" content="Awan">
+<meta property="article:tag" content="筆記">
+<meta property="article:tag" content="linked lists">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://awan119.github.io/linked-tree/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>[筆記] Linked Lists & Binary Lists | Awan blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-W6QCY5PHBL"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-W6QCY5PHBL');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Awan blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Here are my memory and experience.</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-awan-blog">
+
+    <a href="https://awan119.github.io/" rel="section"><i class="fa fa-user fa-fw"></i>Awan Blog</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔<span class="badge">5</span></a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://awan119.github.io/linked-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Awan">
+      <meta itemprop="description" content="Hi, I am from Taiwan. I try to use website to record my life memory and what I just know. Feel free to contact me.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Awan blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [筆記] Linked Lists & Binary Lists
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2023-05-01 11:28:15 / 修改時間：11:51:12" itemprop="dateCreated datePublished" datetime="2023-05-01T11:28:15+08:00">2023-05-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%B3%87%E6%96%99%E7%B5%90%E6%A7%8B/" itemprop="url" rel="index"><span itemprop="name">資料結構</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>3 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>本人從來沒有認真學習過資料結構，想慢慢重新學習這些。</p>
+<blockquote>
+<p>以下內容都是詢問 ChatGPT 做出的回答</p>
+</blockquote>
+<h1 id="陣列（Arrays）與連結串列（Linked-Lists）"><a href="#陣列（Arrays）與連結串列（Linked-Lists）" class="headerlink" title="陣列（Arrays）與連結串列（Linked Lists）"></a>陣列（Arrays）與連結串列（Linked Lists）</h1><h2 id="陣列（Arrays）"><a href="#陣列（Arrays）" class="headerlink" title="陣列（Arrays）"></a>陣列（Arrays）</h2><p>陣列是一種有限長度、具有固定大小的資料結構，它可以存儲一系列具有相同數據型別的元素。在陣列中，每個元素都可以通過一個唯一的索引值來訪問。例如，下面是一個包含5個整數的陣列：</p>
+<span id="more"></span>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">int array[5] = &#123;1, 2, 3, 4, 5&#125;;</span><br><span class="line">可以使用以下方法來訪問陣列中的元素：</span><br><span class="line"></span><br><span class="line">// 訪問第3個元素，即3</span><br><span class="line">int x = array[2];</span><br><span class="line"></span><br><span class="line">// 將第1個元素設置為6</span><br><span class="line">array[0] = 6;</span><br></pre></td></tr></table></figure>
+
+<p>陣列的優點是可以快速訪問元素，但<strong>缺點</strong>是它們的大小是固定的，因此當需要存儲的元素超出陣列大小時，就需要重新分配一個更大的陣列。</p>
+<h2 id="連結串列（Linked-Lists）"><a href="#連結串列（Linked-Lists）" class="headerlink" title="連結串列（Linked Lists）"></a>連結串列（Linked Lists）</h2><p>連結串列是一種動態資料結構，它可以用於動態地增加和刪除元素。在連結串列中，每個元素都被稱為節點（node），每個節點都包含數據和一個指向下一個節點的指標。下面是一個包含3個整數的連結串列：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Copy code</span><br><span class="line">struct Node &#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct Node* next;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">struct Node* head = NULL;</span><br><span class="line">head = (struct Node*)malloc(sizeof(struct Node));</span><br><span class="line">head-&gt;data = 1;</span><br><span class="line">head-&gt;next = (struct Node*)malloc(sizeof(struct Node));</span><br><span class="line">head-&gt;next-&gt;data = 2;</span><br><span class="line">head-&gt;next-&gt;next = (struct Node*)malloc(sizeof(struct Node));</span><br><span class="line">head-&gt;next-&gt;next-&gt;data = 3;</span><br><span class="line">head-&gt;next-&gt;next-&gt;next = NULL;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Linked-list"><a href="#Linked-list" class="headerlink" title="Linked list"></a>Linked list</h1><p>TBD</p>
+<h2 id="Binary-tree-in-Linked-list"><a href="#Binary-tree-in-Linked-list" class="headerlink" title="Binary tree in Linked list"></a>Binary tree in Linked list</h2><p>以下是我詢問 ChatGPT 提供我一個如何將 Binary tree 印出來的方法</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line"></span><br><span class="line">// 建立二元樹的節點結構</span><br><span class="line">struct Node &#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct Node* left;</span><br><span class="line">    struct Node* right;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">// 新增一個節點</span><br><span class="line">struct Node* createNode(int data) &#123;</span><br><span class="line">    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));</span><br><span class="line">    newNode-&gt;data = data;</span><br><span class="line">    newNode-&gt;left = NULL;</span><br><span class="line">    newNode-&gt;right = NULL;</span><br><span class="line">    return newNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 遞迴地輸出二元樹的節點值，前序</span><br><span class="line">void printTree(struct Node* node) &#123;</span><br><span class="line">    if (node == NULL) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    printf(&quot;%d &quot;, node-&gt;data);</span><br><span class="line">    printTree(node-&gt;left);</span><br><span class="line">    printTree(node-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//中序</span><br><span class="line">void printInorder(struct Node* node) &#123;</span><br><span class="line">    if (node == NULL) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    printInorder(node-&gt;left);</span><br><span class="line">    printf(&quot;%d &quot;, node-&gt;data);</span><br><span class="line">    printInorder(node-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//後序</span><br><span class="line">void printPostorder(struct Node* node) &#123;</span><br><span class="line">    if (node == NULL) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    printPostorder(node-&gt;left);</span><br><span class="line">    printPostorder(node-&gt;right);</span><br><span class="line">    printf(&quot;%d &quot;, node-&gt;data);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">int main() &#123;</span><br><span class="line">    // 建立二元樹</span><br><span class="line">    struct Node* root = createNode(1);</span><br><span class="line">    root-&gt;left = createNode(2);</span><br><span class="line">    root-&gt;right = createNode(3);</span><br><span class="line">    root-&gt;left-&gt;left = createNode(4);</span><br><span class="line">    root-&gt;left-&gt;right = createNode(5);</span><br><span class="line">    root-&gt;right-&gt;left = createNode(6);</span><br><span class="line">    root-&gt;right-&gt;right = createNode(7);</span><br><span class="line"></span><br><span class="line">    // 輸出二元樹的節點值</span><br><span class="line">    printf(&quot;前序 Binary Tree: &quot;);</span><br><span class="line">    printTree(root);</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line">    printf(&quot;中序 Binary Tree: &quot;);</span><br><span class="line">    printInorder(root);</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line">    printf(&quot;後序 Binary Tree: &quot;);</span><br><span class="line">    printPostorder(root);</span><br><span class="line">    printf(&quot;\n&quot;);</span><br><span class="line"></span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>範例中 Binary Tree 的樣貌為</p>
+<blockquote class="imgur-embed-pub" lang="en" data-id="a/1zsrayK"  ><a target="_blank" rel="noopener" href="//imgur.com/a/1zsrayK">Data structure</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
+<p>結果為：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">前序 Binary Tree: 1 2 4 5 3 6 7 </span><br><span class="line">中序 Binary Tree: 4 2 5 1 6 3 7 </span><br><span class="line">後序 Binary Tree: 4 5 2 6 7 3 1 </span><br></pre></td></tr></table></figure>
+
+<h1 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h1><ol>
+<li>Leetcode 程式解題基礎：linked list 和 binary tree<br><a target="_blank" rel="noopener" href="https://www.mropengate.com/2017/12/leetcode-linked-list-binary-tree.html">https://www.mropengate.com/2017/12/leetcode-linked-list-binary-tree.html</a></li>
+<li>二元樹(Binary Tree)基礎<br><a target="_blank" rel="noopener" href="https://kopu.chat/%E4%BA%8C%E5%85%83%E6%A8%B9/">https://kopu.chat/%E4%BA%8C%E5%85%83%E6%A8%B9/</a></li>
+</ol>
+<h1 id="Extension"><a href="#Extension" class="headerlink" title="Extension"></a>Extension</h1><h2 id="mallos"><a href="#mallos" class="headerlink" title="mallos"></a>mallos</h2><p>malloc 是一個 C 語言的標準函式庫，用於<strong>動態分配記憶體</strong>。在上面的程式碼中，malloc 用於動態分配連結串列的節點結構，因為在建立連結串列時，我們不知道需要多少個節點。因此，我們使用 malloc 函式來動態分配節點的記憶體空間。</p>
+<p>malloc 函式會返回一個指向已分配的記憶體空間的指標。在上面的程式碼中，我們使用 (struct Node*)malloc(sizeof(struct Node)) 來分配一個大小為 struct Node 結構的記憶體空間，並將其轉換為 struct Node* 型別的指標。</p>
+<p>需要注意的是，當使用 malloc 函式動態分配記憶體時，必須在使用完畢後釋放它，以避免記憶體洩漏。在上面的程式碼中，我們沒有釋放已分配的記憶體空間，這是不好的程式習慣。通常，我們可以使用 free 函式來釋放已分配的記憶體空間。例如，釋放一個已分配的節點記憶體可以使用以下程式碼：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">free(new_node);</span><br></pre></td></tr></table></figure>
+<p>建議在使用 malloc 和 free 函式時要注意記憶體管理，以避免發生記憶體洩漏或記憶體錯誤等問題。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%AD%86%E8%A8%98/" rel="tag"># 筆記</a>
+              <a href="/tags/linked-lists/" rel="tag"># linked lists</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/keukenhof-bike/" rel="prev" title="[荷蘭]Keukenhof(庫肯霍夫)鬱金香節 ─ 腳踏車篇">
+      <i class="fa fa-chevron-left"></i> [荷蘭]Keukenhof(庫肯霍夫)鬱金香節 ─ 腳踏車篇
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%99%A3%E5%88%97%EF%BC%88Arrays%EF%BC%89%E8%88%87%E9%80%A3%E7%B5%90%E4%B8%B2%E5%88%97%EF%BC%88Linked-Lists%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">陣列（Arrays）與連結串列（Linked Lists）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%A3%E5%88%97%EF%BC%88Arrays%EF%BC%89"><span class="nav-number">1.1.</span> <span class="nav-text">陣列（Arrays）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%A3%E7%B5%90%E4%B8%B2%E5%88%97%EF%BC%88Linked-Lists%EF%BC%89"><span class="nav-number">1.2.</span> <span class="nav-text">連結串列（Linked Lists）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Linked-list"><span class="nav-number">2.</span> <span class="nav-text">Linked list</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Binary-tree-in-Linked-list"><span class="nav-number">2.1.</span> <span class="nav-text">Binary tree in Linked list</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Reference"><span class="nav-number">3.</span> <span class="nav-text">Reference</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Extension"><span class="nav-number">4.</span> <span class="nav-text">Extension</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#mallos"><span class="nav-number">4.1.</span> <span class="nav-text">mallos</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Awan</p>
+  <div class="site-description" itemprop="description">Hi, I am from Taiwan. I try to use website to record my life memory and what I just know. Feel free to contact me.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">5</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分類</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">標籤</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/awan119/awan119.github.io.git" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;awan119&#x2F;awan119.github.io.git" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:queenawan5@gmail.com" title="E-Mail → mailto:queenawan5@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+        <div class="back-to-top motion-element">
+          <i class="fa fa-arrow-up"></i>
+          <span>0%</span>
+        </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"><a target="_blank" rel="noopener" href='https://github.com/awan119/awan119.github.io.git'>Awan</a></span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="總字數">11k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="所需總閱讀時間">10 分鐘</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="訪客總數">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="總瀏覽次數">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
