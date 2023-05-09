@@ -55,6 +55,68 @@ head->next->next->next = NULL;
 
 # Linked list
 TBD
+```
+#include <stdio.h>
+#include <stdlib.h>
+
+// 定義一個節點結構
+struct Node{
+    int data;
+    struct Node* next; //每個節點包含當前節點的 data 還有指向下一個節點的地址
+};
+
+// 創建一個新節點
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*) malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+//筆記  Node** 因為希望是修改指針本身的地址，而非修改地址中的值
+//因此用雙重指針，這樣可以直接修改節點的位址，不用再 return 值
+void append(stuct Node** headRef, int data){
+    
+    //先創建 data 節點
+    struct Node* newNode = createNode(data);
+
+    //新增節點在第一個節點之後
+    if (*headRef == NULL){
+        *headRef = newNode;  
+        return;
+    }
+
+    stuct Node* current = *headRef;//宣告 current 紀錄當前的地址
+    while (current->next != NULL){
+        current = current->next;
+    }
+    current->next = newNode;
+}
+
+// 將 Linked Lists 內容 print 出來 ////////////////// TBD
+void printLinkedList(struct Node* head) {
+    struct Node* current = head;
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->next;
+    }
+}
+
+int main(){
+    struct Node* head = NULL; //建立第一個節點
+    
+    //增加後續的節點
+    append(&head, 1);
+    append(&head, 2);
+    append(&head, 3);
+    ////////////////// TBD
+    // 將 Linked Lists 內容 print 出來
+    printf("Linked List contents: ");
+    printLinkedList(head);
+
+    return 0;
+}
+```
 
 ## Binary tree in Linked list
 以下是我詢問 ChatGPT 提供我一個如何將 Binary tree 印出來的方法
