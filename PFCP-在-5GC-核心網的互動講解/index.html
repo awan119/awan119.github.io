@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://imgur.com/BIjVLZV">
 <meta property="og:image" content="https://imgur.com/SHJP1FL">
 <meta property="article:published_time" content="2024-03-03T06:11:43.000Z">
-<meta property="article:modified_time" content="2024-03-03T07:00:48.116Z">
+<meta property="article:modified_time" content="2024-03-03T07:06:28.940Z">
 <meta property="article:author" content="Awan">
 <meta property="article:tag" content="筆記">
 <meta property="article:tag" content="5GC">
@@ -202,7 +202,7 @@
               <span class="post-meta-item-text">發表於</span>
               
 
-              <time title="創建時間：2024-03-03 14:11:43 / 修改時間：15:00:48" itemprop="dateCreated datePublished" datetime="2024-03-03T14:11:43+08:00">2024-03-03</time>
+              <time title="創建時間：2024-03-03 14:11:43 / 修改時間：15:06:28" itemprop="dateCreated datePublished" datetime="2024-03-03T14:11:43+08:00">2024-03-03</time>
             </span>
 
           
@@ -254,7 +254,7 @@
 <p>回到上上段的結尾，UPF 為了把封包傳送去 60.60.0.1，他知道要去到核心網，也知道要先傳給哪一個 gNB ，因此 UPF 在傳送這個UE封包之前，會把 GTP Header 放上去，連同 gNB ip、PDR id、QER id (這會用來標示這顆封包想要的 QoS服務)、FAR id 等等，傳送出去到了基地台，基地台就會把 GTP Header 拿掉，才原原本本的把封包傳給 UE 60.60.0.1</p>
 <p>那反之，如果今天是 UE 要 uplink 丟了一個封包給基地台，基地台就會把封包裝上 GTP Header，並傳給 UPF，UPF 知道要去的目的地在哪，就把 GTP Header 拆掉，原原本本的把封包送去目標 ip。</p>
 <p>以上就是控制層SMF 利用 PFCP 傳遞對應的封包，讓資料層 UPF 知道怎麼出裡接收到的 user plane 封包的過程</p>
-<p>補充：在論文中沒有特別劃出 gNB 這個腳色，是因為 UERANSIM 這個軟體直接模擬了 UE+RAN(基地台)，所以從 UERANSIM 出來的封包已經是 GTP 封包了，請參考下圖<br><img src="https://imgur.com/SHJP1FL" alt="PFCP PCAP detail"></p>
+<p>補充：在論文中沒有特別劃出 gNB 這個腳色，是因為 UERANSIM 這個軟體直接模擬了 UE+RAN(基地台)，所以從 UERANSIM 出來的封包已經是 GTP 封包了，請參考下圖<br><img src="https://imgur.com/SHJP1FL" alt="UERANSIM"></p>
 <hr>
 <p>PFCP 講解結束，若有錯誤，歡迎留言協助修正，謝謝</p>
 
